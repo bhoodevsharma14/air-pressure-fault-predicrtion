@@ -4,7 +4,7 @@ import json
 client = pymongo.MongoClient("mongodb://localhost:27017/neurolabDB")
 
 DATA_FILE_PATH = "/config/workspace/aps_failure_training_set1.csv"
-DATABASE_NAME = "app"
+DATABASE_NAME = "aps"
 COLLECTION_NAME = "sensor"
 
 if __name__ == "__main__":
