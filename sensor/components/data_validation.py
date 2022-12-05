@@ -17,7 +17,7 @@ class DataValidation:
             logging.info(f"{'>>'*20} Data Validation {'<<'*20}")
             self.data_validation_config = data_validation_config
             self.data_ingestion_artifact = data_ingestion_artifact
-            self.validation_error = {}
+            self.validation_error = dict()
         except Exception as e:
             raise sensorException(e, sys)
 
@@ -36,7 +36,7 @@ class DataValidation:
             # Selecting Column Names which has to be droped
             drop_column_names = null_report[null_report>threshold].index
             
-            self.validation_error["droped columns"] = drop_column_names
+            self.validation_error["droped columns"] = list(drop_column_names)
             df.drop(list(drop_column_names),axis=1,inplace=True)
 
             if len(df.columns)==0:
@@ -58,7 +58,7 @@ class DataValidation:
                     missing_columns.append(base_column)
 
             if len(missing_columns)>0:
-                self.validaton_error["Missing Columns"] = missing_columns
+                self.validation_error["Missing Columns"] = missing_columns
                 return False
             return True
 
@@ -80,7 +80,7 @@ class DataValidation:
                 if same_distribution.pvalue > 0.05:
                     # accepting Null Hypothesis
                     drift_report[base_column]={
-                        "pvalues":same_distribution.pvalue,
+                        "pvalues":float(same_distribution.pvalue),
                         "same_distribution":True
                     }
                 else:
