@@ -17,6 +17,11 @@ class DataTransformationArtifact:
     transformed_test_path:str
     target_encoder_path:str
 
-class ModelTrainingArtifact:...
+@dataclass
+class ModelTrainingArtifact:
+    model_path:str
+    f1_train_score:float
+    f1_test_score:float
+
 class ModelEvaluationArtifact:...
 class ModelPusherArtifact:...
