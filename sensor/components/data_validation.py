@@ -38,6 +38,7 @@ class DataValidation:
             drop_column_names = null_report[null_report>threshold].index
             
             self.validation_error["droped columns"] = list(drop_column_names)
+            logging.info(f"Droping columns from {report_key_name} which does not meet theshold {threshold}\n columns are \n {self.validation_error['droped columns']} ")
             df.drop(list(drop_column_names),axis=1,inplace=True)
 
             if len(df.columns)==0:
@@ -50,6 +51,7 @@ class DataValidation:
 
     def is_required_column_exsist(self,base_df:pd.DataFrame,current_df:pd.DataFrame,report_key_name:str)->bool:
         try:
+            logging.info(f"Checking If required columns exsists in {report_key_name}")
             base_columns = base_df.columns
             current_columns = current_df.columns
             
@@ -59,6 +61,7 @@ class DataValidation:
                     missing_columns.append(base_column)
 
             if len(missing_columns)>0:
+                logging.info(f"{report_key_name} having missing column {missing_columns}")
                 self.validation_error["Missing Columns"] = missing_columns
                 return False
             return True
@@ -68,6 +71,7 @@ class DataValidation:
 
     def data_drift(self,base_df:pd.DataFrame,current_df:pd.DataFrame,report_key_name:str):
         try:
+            logging.info(f"Checking Data drift {report_key_name}")
             drift_report = dict()
 
             base_columns = base_df.columns
@@ -86,6 +90,7 @@ class DataValidation:
                     }
                 else:
                     # rejecting null hypothesis
+                    logging.info(f"There is Data Drift in {base_column}")
                     drift_report[base_column]={
                         "pvalues":float(same_distribution.pvalue),
                         "same_distribution":False

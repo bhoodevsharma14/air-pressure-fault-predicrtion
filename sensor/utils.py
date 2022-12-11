@@ -32,6 +32,7 @@ def get_collection_as_dataframe(database_name:str,collection_name:str)->pd.DataF
 
 def write_yaml_file(file_path,data:dict):
     try:
+        logging.info(f"Data Drift Report {file_path}")
         file_dir = os.path.dirname(file_path)
         os.makedirs(file_dir,exist_ok=True)
         with open(file_path,"w") as file_writer:
@@ -42,6 +43,7 @@ def write_yaml_file(file_path,data:dict):
 
 def convert_column_float(df:pd.DataFrame,exclude_columns:list)->pd.DataFrame:
     try:
+        logging.info(f"Converting all columns into float data type!")
         for column in df.columns:
             if column not in exclude_columns:
                 df[column] = df[column].astype('float')
@@ -60,7 +62,7 @@ def save_object(file_path:str,obj:object)->None:
 
 def load_object(file_path:str)->object:
     try:
-        if os.path.exists(file_path):
+        if not os.path.exists(file_path):
             raise Exception(f"The File {file_path} does not exists!!")
         with open(file_path,"rb") as file_obj:
             return dill.load(file_obj)
