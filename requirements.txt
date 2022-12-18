@@ -1,5 +1,7 @@
 pandas
 PyYAML
+numpy
+sciket-learn
 dill==0.3.5.1
 dnspython==2.2.1
 fastapi==0.78.0
@@ -15,4 +17,5 @@ watchfiles==0.17.0
 websockets==10.3
 wincertstore==0.2
 xgboost==1.6.2
+apache-airflow
 -e .
