@@ -10,6 +10,6 @@ ENV AIRFLOW__CORE__ENABLE_XCOM_PICKLING=True
 RUN airflow db init
 RUN airflow users create -e bhoodev.sharma14@gmail.com -f bhoodev -l sharma -p admin -r Admin -u admin
 RUN chmod 777 start.sh
-RUN apt update -y apt install awscli -y
+RUN apt update && apt install awscli -y
 ENTRYPOINT ["/bin/sh"]
 CMD ["start.sh"]
